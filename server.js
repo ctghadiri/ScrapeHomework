@@ -21,6 +21,9 @@ app.use(express.static("public"));
 mongoose.connect("mongodb://localhost/unit18Populater", {useNewUrlParser: true})
 // Get routes
     // Scraping
+app.get("/scrape", function(req,res){
+    
+})
     // Getting Info from DB
 
 // Start Server
