@@ -18,7 +18,7 @@ app.use(express.static("public"));
 
 // Connect to mongo
 
-mongoose.connect("mongodb://localhost/unit18Populater", {useNewUrlParser: true})
+mongoose.connect("mongodb://localhost/unit18Populater", {useNewUrlParser: true});
 // Get routes
     // Scraping
 app.get("/scrape", function(req,res){
@@ -40,8 +40,8 @@ app.get("/scrape", function(req,res){
             });
         });
         res.send("Scrape Complete")
-    })
-})
+    });
+});
     // Getting Info from DB
 
 app.get("/Movies", function(req,res){
@@ -50,7 +50,20 @@ app.get("/Movies", function(req,res){
         res.json(dbMovies)
     }).catch(function (err){
         res.json(err)
-    })
+    });
+});
+
+// Grabs specific movie and populates note
+app.get("/Movies/:id", function(req,res){
+    
+    db.Movies.findOne({_id: req.params.id})
+    .populate("note")
+    .then(function(dbMovies){
+        res.json(dbMovies);
+    }).catch(function(err){
+        res.json(err)
+    });
+
 })
 
 
