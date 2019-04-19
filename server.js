@@ -42,7 +42,8 @@ app.get("/scrape", function(req,res){
         res.send("Scrape Complete")
     });
 });
-    // Getting Info from DB
+    
+// Getting Info from DB
 
 app.get("/Movies", function(req,res){
     db.Movies.find({})
@@ -54,6 +55,7 @@ app.get("/Movies", function(req,res){
 });
 
 // Grabs specific movie and populates note
+
 app.get("/Movies/:id", function(req,res){
     
     db.Movies.findOne({_id: req.params.id})
@@ -66,7 +68,8 @@ app.get("/Movies/:id", function(req,res){
 
 })
 
-// Rote for saving and updating note associated with movie
+// Route for saving and updating note associated with movie
+
 app.post("/Movies/:id", function(req,res){
     dbNote.create(req.body)
     .then(function (dbNote){
@@ -79,8 +82,8 @@ app.post("/Movies/:id", function(req,res){
 })
 
 
-
 // Start Server
+
 app.listen(PORT, function() {
     console.log("App running on port " + PORT + "!");
   });
