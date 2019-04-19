@@ -11,6 +11,9 @@ var PORT = 3000;
 var app = express()
 // Configure middleware
 
+app.use(express.urlencoded({extended: true}));
+app.use(express.json());
+app.use(express.static("public"));
 // Connect to mongo
 
 // Get routes
