@@ -22,7 +22,14 @@ mongoose.connect("mongodb://localhost/unit18Populater", {useNewUrlParser: true})
 // Get routes
     // Scraping
 app.get("/scrape", function(req,res){
-    
+    axios.get("https://www.amctheatres.com/movies").then(function(response){
+        var $ = cheerio.load(response.data);
+
+        $(".MoviePostersGrid-text").each(function(i, element){
+            var result = {};
+            
+        })
+    })
 })
     // Getting Info from DB
 
