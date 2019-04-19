@@ -66,9 +66,10 @@ app.get("/Movies/:id", function(req,res){
 
 })
 
+// Rote for saving and updating note associated with movie
 app.post("/Movies/:id", function(req,res){
     dbNote.create(req.body)
-    .then(function (dbMovies){
+    .then(function (dbNote){
         return db.Movies.findOneAndUpdate({_id: req.params.id}, {note: dbNote._id}, {new: true})
     }).then(function (dbMovies){
         res.json(dbMovies);
