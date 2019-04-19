@@ -29,8 +29,8 @@ app.get("/scrape", function(req,res){
             var result = {};
 
             result.movie = $(this).children("h3").text()
+            if (result.movie !== ""){
             console.log(result)
-
             db.Movies.create(result)
             .then(function (dbMovies){
                 console.log(dbMovies)
@@ -38,6 +38,8 @@ app.get("/scrape", function(req,res){
             .catch(function(err){
                 console.log(err)
             });
+
+            }
         });
         res.send("Scrape Complete")
     });
