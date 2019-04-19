@@ -66,6 +66,17 @@ app.get("/Movies/:id", function(req,res){
 
 })
 
+app.post("/Movies/:id", function(req,res){
+    dbNote.create(req.body)
+    .then(function (dbMovies){
+        return db.Movies.findOneAndUpdate({_id: req.params.id}, {note: dbNote._id}, {new: true})
+    }).then(function (dbMovies){
+        res.json(dbMovies);
+    }).catch(function(err){
+        res.json(err)
+    })
+})
+
 
 
 // Start Server
