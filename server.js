@@ -49,8 +49,13 @@ app.get("/Movies", function(req,res){
     .then(function(dbMovies) {
         res.json(dbMovies)
     }).catch(function (err){
-        
+        res.json(err)
     })
 })
 
+
+
 // Start Server
+app.listen(PORT, function() {
+    console.log("App running on port " + PORT + "!");
+  });
