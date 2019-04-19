@@ -44,4 +44,13 @@ app.get("/scrape", function(req,res){
 })
     // Getting Info from DB
 
+app.get("/Movies", function(req,res){
+    db.Movies.find({})
+    .then(function(dbMovies) {
+        res.json(dbMovies)
+    }).catch(function (err){
+        
+    })
+})
+
 // Start Server
