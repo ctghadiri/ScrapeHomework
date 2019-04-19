@@ -25,9 +25,11 @@ app.get("/scrape", function(req,res){
     axios.get("https://www.amctheatres.com/movies").then(function(response){
         var $ = cheerio.load(response.data);
 
-        $(".MoviePostersGrid-text").each(function(i, element){
+        $(".MoviePostersGrid-text a").each(function(i, element){
             var result = {};
-            
+
+            result.movie = $(this).children("h3").text()
+            console.log(result)
         })
     })
 })
