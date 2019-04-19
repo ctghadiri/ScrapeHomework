@@ -30,7 +30,16 @@ app.get("/scrape", function(req,res){
 
             result.movie = $(this).children("h3").text()
             console.log(result)
-        })
+
+            db.Movies.create(result)
+            .then(function (dbMovies){
+                console.log(dbMovies)
+            })
+            .catch(function(err){
+                console.log(err)
+            });
+        });
+        res.send("Scrape Complete")
     })
 })
     // Getting Info from DB
