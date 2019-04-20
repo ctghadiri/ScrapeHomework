@@ -8,6 +8,11 @@ var cheerio = require("cheerio");
 var db = require("./models");
 var PORT = 3000;
 
+// Heroku connection
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
+
+mongoose.connect(MONGODB_URI);
+
 // Initialize Express
 var app = express()
 
