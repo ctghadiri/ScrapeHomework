@@ -19,17 +19,23 @@ app.use(express.static("public"));
 // Connect to mongo
 
 mongoose.connect("mongodb://localhost/unit18Populater", {useNewUrlParser: true});
+
 // Get routes
-    // Scraping
+
+// Scraping
 app.get("/scrape", function(req,res){
     axios.get("https://www.amctheatres.com/movies").then(function(response){
         var $ = cheerio.load(response.data);
 
         $(".MoviePostersGrid-text a").each(function(i, element){
             var result = {};
+            // console.log(i);
+            // console.log("====================================");
+            // console.log(element);
 
-            result.movie = $(this).children("h3").text()
-            result.link = $(this).children(".link").attr("href")
+            result.movie = $(this).children("h3").text();
+            result.link = "https://www.amctheatres.com" + $(this).attr("href");
+            console.log(result.link)
 
             if (result.movie !== ""){
                 
@@ -38,7 +44,7 @@ app.get("/scrape", function(req,res){
                 db.Movies.create(result)
                 .then(function (dbMovies){
 
-                    // console.log(dbMovies)
+                    console.log(dbMovies)
                 })
                 .catch(function(err){
 
@@ -81,17 +87,37 @@ app.get("/movies/:id", function(req,res){
 // Route for saving and updating note associated with movie
 
 app.post("/movies/:id", function(req,res){
-    db.Note.create(req.body)
+
+    db.Notes.create(req.body)
     .then(function (dbNote){
         return db.Movies.findOneAndUpdate({_id: req.params.id}, {note: dbNote._id}, {new: true})
-    }).then(function (dbMovies){
+    })
+    .then(function (dbMovies){
         res.json(dbMovies);
-    }).catch(function(err){
+    })
+    .catch(function(err){
         res.json(err)
     })
 })
 
+// Grabs all notes
 
+app.get("/allnotes", function (req,res){
+
+    db.Notes.find({})
+    .then(function(dbNotes){
+        res.json(dbNotes)
+    })
+    .catch(function(err){
+        res.json(err)
+    })
+})
+
+app.get("/clear", function (req, res) {
+    mongoose.connection.collections['movies'].drop(function (err) {
+        console.log('collection dropped');
+    });
+});
 // Start Server
 
 app.listen(PORT, function() {
