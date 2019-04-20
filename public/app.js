@@ -1,5 +1,3 @@
-import { get } from "http";
-
 // Grab movies data and display on page
 
 $.getJSON("/Movies", function (data){
@@ -16,7 +14,7 @@ $(document).on("click", "p", function (){
     var id = $(this).attr("data-id");
 
     $.ajax({
-        method: get,
+        method: "GET",
         url: "/movies/" + id
     })
     .then(function(data){
