@@ -29,15 +29,20 @@ app.get("/scrape", function(req,res){
             var result = {};
 
             result.movie = $(this).children("h3").text()
+
             if (result.movie !== ""){
-            console.log(result)
-            db.Movies.create(result)
-            .then(function (dbMovies){
-                console.log(dbMovies)
-            })
-            .catch(function(err){
-                console.log(err)
-            });
+                
+                console.log(result)
+
+                db.Movies.create(result)
+                .then(function (dbMovies){
+
+                    // console.log(dbMovies)
+                })
+                .catch(function(err){
+
+                    console.log(err)
+                });
 
             }
         });
@@ -47,33 +52,35 @@ app.get("/scrape", function(req,res){
     
 // Getting Info from DB
 
-app.get("/Movies", function(req,res){
+app.get("/movies", function(req,res){
     db.Movies.find({})
     .then(function(dbMovies) {
-        res.json(dbMovies)
-    }).catch(function (err){
+        res.json(dbMovies);
+    })
+    .catch(function (err){
         res.json(err)
     });
 });
 
 // Grabs specific movie and populates note
 
-app.get("/Movies/:id", function(req,res){
+app.get("/movies/:id", function(req,res){
     
     db.Movies.findOne({_id: req.params.id})
     .populate("note")
     .then(function(dbMovies){
         res.json(dbMovies);
-    }).catch(function(err){
+    })
+    .catch(function(err){
         res.json(err)
     });
 
-})
+});
 
 // Route for saving and updating note associated with movie
 
-app.post("/Movies/:id", function(req,res){
-    dbNote.create(req.body)
+app.post("/movies/:id", function(req,res){
+    db.Note.create(req.body)
     .then(function (dbNote){
         return db.Movies.findOneAndUpdate({_id: req.params.id}, {note: dbNote._id}, {new: true})
     }).then(function (dbMovies){
