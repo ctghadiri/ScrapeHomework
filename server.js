@@ -29,7 +29,7 @@ app.get("/scrape", function(req,res){
             var result = {};
 
             result.movie = $(this).children("h3").text()
-            result.link = $(this).attr("href")
+            result.link = $(this).children(".link").attr("href")
 
             if (result.movie !== ""){
                 
