@@ -2,7 +2,7 @@
 
 $.getJSON("/Movies", function (data){
     for (var i = 0; i < data.length; i++){
-        $("#movies").append("<p data-id='" + data[i]._id + "'>" + data[i].movie + "</p>")
+        $("#movies").append("<p data-id='" + data[i]._id + "'>" + data[i].movie + "<br />" + data[i].link + "</p>")
     }
 })
 
@@ -56,4 +56,22 @@ $(document).on("click", "#savenote", function (){
 
     $("#titleinput").val("");
     $("#bodyinput").val("");
+});
+
+$(document).on("click", "#deletenote", function (){
+
+    var id = $(this).attr("data-id");
+
+    $.ajax({
+    method: "POST",
+    url: "/articles/" + id,
+    data: {
+        movie: $("#movieinput").empty(),
+        body: $("#bodyinput").empty()
+    }
+    })
+    .then(function(data) {
+        console.log(data);
+        $("#notes").empty();
+    });
 });
