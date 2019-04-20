@@ -2,7 +2,14 @@
 
 $.getJSON("/Movies", function (data){
     for (var i = 0; i < data.length; i++){
-        $("#movies").append("<p data-id='" + data[i]._id + "'>" + data[i].movie + "<br />" + "<button onclick='location.href=" +data[i].link + " type= 'button'> Link </button>")
+        $("#movies").append("<div id='movie-group'><p data-id='" + data[i]._id + "'>" + data[i].movie + "</p>" + "<br />" + "<button href=" + data[i].link + "> Link </button></div>")
+    }
+})
+$.getJSON("/allnotes", function (data){
+    for (var i = 0; i < data.length; i++){
+        if (data.body !== ""){
+            $("#movies").append("<div id='movie-group'><p data-id='" + data[i]._id + "'</p></div>")
+        }
     }
 })
 
@@ -43,7 +50,7 @@ $(document).on("click", "#savenote", function (){
 
     $.ajax({
     method: "POST",
-    url: "/articles/" + id,
+    url: "/movies/" + id,
     data: {
         movie: $("#movieinput").val(),
         body: $("#bodyinput").val()
@@ -54,7 +61,7 @@ $(document).on("click", "#savenote", function (){
         $("#notes").empty();
     });
 
-    $("#titleinput").val("");
+    $("#movieinput").val("");
     $("#bodyinput").val("");
 });
 
@@ -64,14 +71,15 @@ $(document).on("click", "#deletenote", function (){
 
     $.ajax({
     method: "POST",
-    url: "/articles/" + id,
+    url: "/movies/" + id,
     data: {
-        movie: $("#movieinput").empty(),
-        body: $("#bodyinput").empty()
+        movie: "",
+        body: ""
     }
     })
     .then(function(data) {
         console.log(data);
+        $("#movieinput").empty();
         $("#notes").empty();
     });
 });
