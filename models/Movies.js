@@ -3,11 +3,11 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 var MovieSchema = new Schema({
-    title: {
+    movie: {
         type: String,
         required: true
     },
-    Note: {
+    note: {
         type: Schema.Types.ObjectId,
         ref: "Note"
     }
