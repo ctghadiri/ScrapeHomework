@@ -20,7 +20,20 @@ $(document).on("click", "p", function (){
         url: "/movies/" + id
     })
     .then(function(data){
-        
+
+        var note = $("#note");
+
+        note.append("<h2>" + data.movie + "<h2>")
+        note.append("<input id='movieinput' name='movie' >")
+        note.append("<textarea id='bodyinput' name='body'></textarea>");
+        note.append("<button data-id='" + data._id + "' id='savenote'>Save Note</button>");
+        note.append("<button data-id='" + data._id + "' id='deletenote'>Delete Note</button>");
+
+        if (data.note) {
+
+        $("#movieinput").val(data.note.movie);
+        $("#bodyinput").val(data.note.body);
+        }
     })
 
 })
