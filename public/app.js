@@ -8,7 +8,7 @@ $.getJSON("/Movies", function (data){
     }
 })
 
-
+// on click listener to generate note
 $(document).on("click", "p", function (){
 
     $("#note").empty()
@@ -34,6 +34,28 @@ $(document).on("click", "p", function (){
         $("#movieinput").val(data.note.movie);
         $("#bodyinput").val(data.note.body);
         }
-    })
+    });
 
-})
+});
+
+// click listener to save note
+$(document).on("click", "#savenote", function (){
+
+    var id = $(this).attr("data-id");
+
+    $.ajax({
+    method: "POST",
+    url: "/articles/" + id,
+    data: {
+        movie: $("#movieinput").val(),
+        body: $("#bodyinput").val()
+    }
+    })
+    .then(function(data) {
+        console.log(data);
+        $("#notes").empty();
+    });
+
+    $("#titleinput").val("");
+    $("#bodyinput").val("");
+});
