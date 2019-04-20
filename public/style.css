@@ -1,0 +1,43 @@
+body { 
+    background-color: darkred
+}
+#wrapper {
+  width: 960px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 5%;
+}
+#movies {
+  display: inline-block;
+  overflow: auto;
+  width: 60%;
+  height: 700px;
+}
+#note {
+  float: right;
+  width: 30%;
+}
+h1{
+    text-align: center;
+    color: lightgreen;
+}
+#movie-group{
+    background-color: aquamarine;
+    margin: 1%;
+    border-radius: 20px;
+    text-align: center
+
+}
+textarea, input {
+  display: block;
+  width: 100%;
+  background-color:lightcoral;
+}
+input {
+  height: 36px;
+  font-size: 24px;
+}
+textarea {
+  height: 200px;
+  font-size: 18px;
+}
