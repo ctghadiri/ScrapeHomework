@@ -10,8 +10,8 @@ var PORT = 3000;
 
 // Heroku connection
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
-
-mongoose.connect(MONGODB_URI);
+mongoose.Promise = Promise;
+mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useCreateIndex: true });
 
 // Initialize Express
 var app = express()
@@ -23,7 +23,7 @@ app.use(express.static("public"));
 
 // Connect to mongo
 
-mongoose.connect("mongodb://localhost/unit18Populater", {useNewUrlParser: true});
+// mongoose.connect("mongodb://localhost/unit18Populater", {useNewUrlParser: true});
 
 // Get routes
 
