@@ -2,7 +2,7 @@
 
 $.getJSON("/Movies", function (data){
     for (var i = 0; i < data.length; i++){
-        $("#movies").append("<div id='movie-group'><p data-id='" + data[i]._id + "'>" + data[i].movie + "</p>" + "<br />" + "<button href=" + data[i].link + "> Link </button></div>")
+        $("#movies").append("<div id='movie-group'><p data-id='" + data[i]._id + "'>" + data[i].movie + "</p>" + "<br />" + "<a class='button' href=" + data[i].link + " target='_blank'> Link </a></div>")
     }
 })
 $.getJSON("/allnotes", function (data){
